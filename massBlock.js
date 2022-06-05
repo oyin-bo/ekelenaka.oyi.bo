@@ -81,7 +81,9 @@ async function massBlock() {
     const blockButton = await waitFor(() => anotherWindow.document.querySelector('div[role=menu] div[role=menuitem][data-testid=block]'));
     console.log('   BLOCK:' + fanHandler + ' click block...');
     blockButton.click();
-    const blockConfirmButton = await waitFor(() => [...anotherWindow.document.querySelectorAll('div[role=dialog] div[role=button] span')].filter(btn => /Block/.test(btn.textContent))[0]);
+    const blockConfirmButton = await waitFor(() =>
+      [...anotherWindow.document.querySelectorAll('div[data-testid=confirmationSheetDialog] div[role=button] span')]
+      .filter(btn => /Block/.test(btn.textContent))[0]);
     console.log('   BLOCK:' + fanHandler + ' confirm block...');
     blockConfirmButton.click();
     await waitFor(() => [...anotherWindow.document.querySelectorAll('div[role=button]')].filter(btn => /Blocked/.test(btn.textContent)));
